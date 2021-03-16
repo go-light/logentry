@@ -20,8 +20,8 @@ type HttpClientLogEntry interface {
 	SetLocalApp(localApp string)
 	SetRemoteIP(remoteIP string)
 	SetRemoteApp(remoteApp string)
-	SetReqSizeBytes(reqSizeBytes int)
-	SetRespSizeBytes(respSizeBytes int)
+	SetReqSizeBytes(reqSizeBytes string)
+	SetRespSizeBytes(respSizeBytes string)
 
 	SetTraceID(traceID string)
 }
@@ -105,12 +105,12 @@ func (h *httpClientLogEntry) SetRemoteIP(remoteIP string) {
 	h.RemoteIP = remoteIP
 }
 
-func (h *httpClientLogEntry) SetReqSizeBytes(reqSizeBytes int) {
-	h.ReqSizeBytes = fmt.Sprintf("%d", reqSizeBytes)
+func (h *httpClientLogEntry) SetReqSizeBytes(reqSizeBytes string) {
+	h.ReqSizeBytes = reqSizeBytes
 }
 
-func (h *httpClientLogEntry) SetRespSizeBytes(respSizeBytes int) {
-	h.RespSizeBytes = fmt.Sprintf("%d", respSizeBytes)
+func (h *httpClientLogEntry) SetRespSizeBytes(respSizeBytes string) {
+	h.RespSizeBytes = respSizeBytes
 }
 
 type httpClientLogEntry struct {
