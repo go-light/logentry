@@ -43,11 +43,6 @@ func (h *httpClientLogEntry) Start() {
 }
 
 func (h *httpClientLogEntry) End() {
-	h.Duration = time.Since(h.startTime)
-	h.CostMS = fmt.Sprintf("%d", h.Duration.Milliseconds())
-}
-
-func (h *httpClientLogEntry) Json() []byte {
 	traceID := ""
 	if traceIDInterface := h.ctx.Value(h.traceIDCtxName); traceIDInterface != nil {
 		value, ok := traceIDInterface.(string)
@@ -58,6 +53,11 @@ func (h *httpClientLogEntry) Json() []byte {
 
 	h.TraceID = traceID
 	h.Started = h.startTime.Format("2006-01-02 15:04:05.000")
+	h.Duration = time.Since(h.startTime)
+	h.CostMS = fmt.Sprintf("%d", h.Duration.Milliseconds())
+}
+
+func (h *httpClientLogEntry) Json() []byte {
 	buf, err := json.Marshal(h)
 	if err != nil {
 
